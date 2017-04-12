@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery</title>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<div>
+    <input id="inputField" type="text" value=""/>
+    <input type="button" id="oreoreSubmit" value="submit" >
+    <input type="button" id="oreoreFilter" value="filter" />
+    <input type="button" id="oreoreShow" value="allShow" />
+    <input type="button" id="oreoreClear" value="allClear"/>
+</div>
+
+<ul id="mainTable">
+</ul>
+
+<script type="text/javascript">
+
+
+    const mainTable = $("#mainTable")
+    const inputField = $("#inputField")
+
+    function delRow() {
+        $(this).parent("li").remove()
+    }
+
+    $("#oreoreSubmit").click(()=> {
+
+        let button = $("<input>")
+            .css("display", "inline")
+            .val("del")
+            .attr("type", "button")
+            .attr("name", "del_button")
+            .click(delRow)
+
+        let text = $('<div>')
+            .css("display", "inline")
+            .addClass("text")
+            .text(inputField.val())
+
+        let element = $('<li>')
+            .append(button)
+            .append(text)
+
+        mainTable.append(element)
+    })
+
+    $("#oreoreClear").click(() =>{
+        mainTable.find("li").remove()
+    })
+
+    $("#oreoreFilter").click(() =>{
+        let text = inputField.val()
+        //JqueryのFilterなので注意
+        mainTable.children("li").filter(
+            (i,ele)=>{
+                return $(ele).find(".text").text().indexOf(text) == -1
+            }
+        ).css("display","none")
+    })
+
+    $("#oreoreShow").click(() =>{
+        mainTable.children("li").css("display","")
+    })
+
+</script>
+</body>
+</html>

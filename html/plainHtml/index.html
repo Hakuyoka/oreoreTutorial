@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PlainTutorial</title>
+</head>
+<body>
+
+<div>
+    <input id="inputField" type="text" value=""/>
+    <input type="button" id="oreoreSubmit" value="submit"  onclick="">
+    <input type="button" id="oreoreFilter" value="filter" onclick=""/>
+    <input type="button" id="oreoreShow" value="allShow" onclick=""/>
+    <input type="button" id="oreoreClear" value="allClear" onclick=""/>
+</div>
+
+<div id="mainTable">
+</div>
+
+<script>
+    //可能な限り妥当性を持って小難しく書いた何か
+    //参照隠蔽のため、クロージャで書く
+    (function () {
+        //再代入されると困るものは、const
+        const mainTable = window.document.getElementById("mainTable")
+        const getText = function(){
+            const inputField = window.document.getElementById("inputField")
+            return
+            ()=>{
+                return inputField.value
+            }
+        }()
+
+        //イベントの分離は個人的にはjavascriptに寄せた方が、フロントとの分離ができると思ってる
+        const submitButton = window.document.getElementById("oreoreSubmit")
+        submitButton.addEventListener("click",addRow(delRow)(getText))
+        const filterButton = window.document.getElementById("oreoreFilter")
+        filterButton.addEventListener("click",filter)
+        const showButton = window.document.getElementById("oreoreShow")
+        showButton.addEventListener("click",allShow)
+        const clearButton = window.document.getElementById("oreoreClear")
+        clearButton.addEventListener("click",allClear)
+
+        function delRow(){
+            this.parentElement.remove()
+        }
+
+        //私にはこれ以上妥当性を持って複雑にはできなさそう
+        function addRow(event,input) {
+            //一応、関数であることを確認
+            if(typeof event !== typeof function() {}){
+                event = ()=>{}
+            }
+            //カリー化
+            if(!input){
+                return (input)=>{
+                    return addRow.apply(this,[event].concat(input))
+                }
+            }
+
+            return ()=>{
+                console.log(input())
+                if(!input().trim()){
+                    return
+                }
+
+                let element = document.createElement('div');
+                element.setAttribute("style","")
+
+                let button = document.createElement("input")
+                button.setAttribute("style","display: inline;")
+                button.setAttribute("value","del")
+                button.setAttribute("type","button")
+                button.setAttribute("name","del_button")
+                button.onclick = event
+
+                let text = document.createElement('div');
+                text.setAttribute("style","display: inline;")
+                text.setAttribute("class","text")
+                text.innerText = input()
+
+                element.appendChild(button)
+                element.appendChild(text)
+
+                mainTable.appendChild(element)
+            }
+        }
+
+
+        function allClear() {
+            Array.prototype.slice.call(mainTable.children,0)
+                .map((row)=>{
+                    row.remove()
+                })
+        }
+
+        function allShow() {
+            Array.prototype.slice.call(mainTable.children,0)
+                .map((row)=>{
+                    row.setAttribute("style","")
+                })
+        }
+
+        function filter() {
+            //レガシー
+//        let rows = mainTable.children
+//        for (let i = 0, len = rows.length; i < len; i++) {
+//            console.log(i)
+//            let row = rows[i]
+//            let text = row.getElementsByClassName("text")[0].innerText
+//            console.log(inputField.value,text)
+//            if(text.indexOf(inputField.value) == -1){
+//                row.setAttribute("style","display:none")
+//            }
+//        }
+            //かっこいい
+            Array.prototype.slice.call(mainTable.children,0)
+                //このレベルだとマップ１発でいい気もする
+                .filter((row)=>{
+                    return row.getElementsByClassName("text")[0].innerText.indexOf(getText()) == -1
+                })
+                .map((row)=>{
+                    row.setAttribute("style","display:none")
+                })
+        }
+
+    })()
+
+</script>
+</body>
+</html>

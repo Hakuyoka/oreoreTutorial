@@ -1,0 +1,68 @@
+/*#mainContentsArea > div{*/
+    /*display: inline-block;*/
+
+/*}*/
+
+.content {
+    border: dashed thin;
+    width: 80%;
+    margin: 0 auto;
+    background-color: whitesmoke;
+    margin-top: 10px;
+}
+
+.profile {
+    width: 85px;
+    display: inline-block;
+}
+
+.image {
+    width: 80px;
+    height: 80px;
+}
+
+.information {
+    display: inline-block;
+    vertical-align: top;
+    width: inherit;
+    padding-left: 3px;
+}
+
+.userId {
+    text-align: center;
+}
+
+.overFlowText{
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.overFlowMultiRowText{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.badge {
+    border-radius: 10px;
+    border: solid cornflowerblue thin;
+    background-color: cornflowerblue;
+    color: whitesmoke;
+    width: auto;
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.btn {
+    background: #09C;
+    border: 1px solid #DDD;
+    color: #FFF;
+    text-shadow: 5px 5px 3px rgba(0,0,0,0.5);
+    width: 100px;
+    padding: 10px 0;
+}

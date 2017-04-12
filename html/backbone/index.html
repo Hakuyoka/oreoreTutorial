@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+
+    <div id="inputDiv">
+
+    </div>
+
+    <div  id="mainTable"></div>
+
+    <script  type="text/template" id="inputTemplate">
+        <input id="inputField" type="text" value="<%- text %>"/>
+        <input type="button" id="oreoreSubmit" value="submit" >
+        <input type="button" id="oreoreFilter" value="filter" />
+        <input type="button" id="oreoreShow" value="allShow" />
+        <input type="button" id="oreoreClear" value="allClear"/>
+    </script>
+
+    <script type="text/template" id="rowTemplate">
+
+        <div class="inline">
+            <input type="button" class="oreoreItemDelete" value="del" style="display: inline"/>
+            <div class="title" style="display: inline"><%- text %></div>
+        </div>
+    </script>
+
+    <script src="../../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../../node_modules/underscore/underscore-min.js"></script>
+    <script src="../../node_modules/backbone/backbone-min.js"></script>
+    <script src="../../js/init.js"></script>
+
+</div>
+</body>
+</html>
